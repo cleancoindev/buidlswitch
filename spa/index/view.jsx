@@ -10,6 +10,11 @@ var Index = React.createClass({
             element: "Info"
         };
     },
+    getDefaultSubscriptions() {
+        return {
+            'ethereum/ping' : this.controller.loadData
+        };
+    },
     onClick(e) {
         e && e.preventDefault && e.preventDefault(true) && e.stopPropagation && e.stopPropagation(true);
         this.changeView(e.currentTarget.innerHTML);
@@ -31,9 +36,11 @@ var Index = React.createClass({
         });
     },
     componentDidMount() {
-        window.addressBarParams.addr && window.addressBarParams.id && this.changeView('Vote');
+        this.controller.loadData();
     },
     render() {
+        var props = {};
+        this.state && Object.entries(this.state).forEach(data => props[data[0]] = data[1]);
         return (
             <section className="OnePage">
                 <header className="Head">
@@ -43,7 +50,7 @@ var Index = React.createClass({
                     <section className="HActions">
                         <a href="https://dfohub.com" target="_Blank">#dfohub</a>
                         <a href="https://github.com/b-u-i-d-l/brand-contest" target="_Blank">#github</a>
-                        <a href={window.getNetworkElement("etherscanURL") + "address/" + window.getNetworkElement("contestAddress")} target="_Blank">#etherscan</a>
+                        <a href={window.getNetworkElement("etherscanURL") + "address/" + window.vasaPowerSwitch.options.address} target="_Blank">#etherscan</a>
                     </section>
                 </header>
                 <section className="PagerMenu">
@@ -53,7 +60,7 @@ var Index = React.createClass({
                         <a href="javascript:;" className="StakeOpener" onClick={this.onClick}>Status</a>
                     </ul>
                 </section>
-                    {React.createElement(window[this.state.element])}
+                    {React.createElement(window[this.state.element], props)}
             </section>
         );
     }

@@ -2,11 +2,10 @@ var StatusController = function (view) {
     var context = this;
     context.view = view;
 
-    context.vote = async function vote(item, wei) {
-        if(parseInt(await window.web3.eth.getBlockNumber()) >= parseInt(await window.blockchainCall(window.contest.methods.getSurveyEndBlock))) {
-            return alert('Survey has ended!');
-        }
-        await window.blockchainCall(wei, window.contest.methods.vote, item.token.options.address, item.tokenId, item.artist);
-        $.publish('leading/refresh');
+    context.refreshTotalSupply = async function refreshTotalSupply() {
+        context.view.setState({
+            oldSupply : await window.blockchainCall(window.oldToken.methods.totalSupply),
+            newSupply : await window.blockchainCall((await window.web3.eth.dfoHub.votingToken).methods.totalSupply)
+        });
     }
 };
