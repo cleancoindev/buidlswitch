@@ -29,10 +29,11 @@ var Status = React.createClass({
             <section className="statusBox">
                 <h2>Switch Status:</h2>
                 <ul>
+                        
                     {this.props.slots && this.props.slots.map((it, i) => <li key={i}>
                         <h1>x {window.numberToString(parseInt(it[1]) / parseInt(it[2]))}</h1>
                         <h5>End Block: <a href={window.getNetworkElement("etherscanURL") + "block/" + it[0]} target="_blank">{it[0]}</a></h5>
-                        <h5>Status: <a>{this.props.slots.indexOf(this.props.currentSlot) === i ? "Active" : this.props.slots.indexOf(this.props.currentSlot) < i ? "Next" : "Finished"}</a></h5>
+                        <h5>Status: <a className={this.props.slots.indexOf(this.props.currentSlot) === i ? "Active" : this.props.slots.indexOf(this.props.currentSlot) < i ? "Next" : "Ended"}>{this.props.slots.indexOf(this.props.currentSlot) === i ? "Active" : this.props.slots.indexOf(this.props.currentSlot) < i ? "Next" : "Ended"}</a></h5>
                     </li>)}
                 </ul>
             </section>
