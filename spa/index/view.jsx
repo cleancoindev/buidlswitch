@@ -3,7 +3,8 @@ var Index = React.createClass({
         "spa/info"
     ],
     requiredScripts: [
-        'spa/bigLoader.jsx'
+        'spa/bigLoader.jsx',
+        'spa/loader.jsx'
     ],
     getInitialState() {
         return {
@@ -60,7 +61,8 @@ var Index = React.createClass({
                         <a href="javascript:;" className="StakeOpener" onClick={this.onClick}>Status</a>
                     </ul>
                 </section>
-                    {React.createElement(window[this.state.element], props)}
+                    {!props.slots && [<br/>, <Loader/>]}
+                    {props.slots && React.createElement(window[this.state.element], props)}
             </section>
         );
     }

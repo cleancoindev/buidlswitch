@@ -3,6 +3,7 @@ var IndexController = function (view) {
     context.view = view;
 
     context.loadData = async function loadData() {
+        context.view.setState({slots : null});
         var length = await window.blockchainCall(window.vasaPowerSwitch.methods.length);
         var slots = [];
         var currentSlot = null;
@@ -15,6 +16,30 @@ var IndexController = function (view) {
         var approved = !window.walletAddress ? false : parseInt(await window.blockchainCall(window.oldToken.methods.allowance, window.walletAddress, window.vasaPowerSwitch.options.address)) > 0;
         var balanceOf = !window.walletAddress ? '0' : await window.blockchainCall(window.oldToken.methods.balanceOf, window.walletAddress);
         var totalMintable = await window.blockchainCall(window.vasaPowerSwitch.methods.totalMintable);
-        context.view.setState({slots, currentSlot, currentBlock, approved, balanceOf, totalMintable, newVotingTokenAddress : (await window.web3.eth.dfoHub.votingToken).options.address});
+        context.view.setState({
+            slots,
+            currentSlot,
+            currentBlock,
+            approved,
+            balanceOf,
+            totalMintable,
+            newVotingTokenAddress : (await window.web3.eth.dfoHub.votingToken).options.address,
+            newVotingTokenSupply : await context.loadSupplies(await window.web3.eth.dfoHub.votingToken, window.context.newBuidlTokenExcludeAddresses),
+            oldVotingTokenSupply : await context.loadSupplies(window.oldToken, window.context.oldBuidlTokenExcludeAddresses)
+        });
+    };
+
+    context.loadSupplies = async function loadSupplies(token, exclude) {
+        try {
+            var totalSupply = window.web3.utils.toBN(await window.blockchainCall(token.methods.totalSupply));
+            if(exclude && exclude.length > 0) {
+                for(var ex of exclude) {
+                    totalSupply = totalSupply.sub(window.web3.utils.toBN(await window.blockchainCall(token.methods.balanceOf, ex)));
+                }
+            }
+            return totalSupply.toString();
+        } catch(e) {
+            return '0';
+        }
     };
 };
