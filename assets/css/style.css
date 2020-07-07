@@ -38,11 +38,10 @@ figure {margin-block-start: 0;margin-block-end: 0;margin-inline-start: 0px;margi
 .Menu .InfoOpener:hover, .InfoOpener:active {background-color: #01182b;}
 .ActionSection {width: 100%; padding: 25px 0; display: inline-block; text-align: center;}
 .switch, .info, .stake {width: 100%; padding: 25px 0; display: inline-block; text-align: center;}
-.switch {background-color: #01182b;min-height: 100%;}
 .switch h3 {display: inline-block; margin: 10px auto; font-size: 30px;}
 .switchBox {width: 290px; background-color: #000000; display: inline-block; border-radius: 50px; margin-top: 100px; padding: 30px 0;}
 .switchTools {width: 90%; padding: 2%; display: inline-block;}
-.switchTools .switchAll {font-size: 15px; padding: 5px 8px; background-color: #8f00ff; border-radius: 5px; margin-right: 5px; display: inline-block; vertical-align: middle;}
+.switchTools .switchAll {font-size: 15px; padding: 5px 8px; background-color: #8f00ff; border-radius: 5px; margin-right: 5px; display: inline-block; vertical-align: middle; text-decoration: none; font-weight: bold;}
 .switchTools input {width: 150px; display: inline-block; height: 35px; background-color: #252525; border-radius: 20px; border: none;color: #f1f1f1;font-size: 20px;text-align: right;}
 .switchTools img {width: 25px;height: 25px; display: inline-block; vertical-align: middle;}
 .switchTools .switchLink {display: inline-block; margin: auto 10px; color: #f1f1f1; font-size: 20px; vertical-align: middle; text-decoration: underline;}
