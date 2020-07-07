@@ -22,8 +22,8 @@ var Info = React.createClass({
                     </section>
                     <section className="ExpPar">
                         <p>#1 set the ammount of $BUIDL V1 you want to switch.</p>
-                        <p>#2 Approve the Manager by clicking to the "Approve" button and then start the Aprroval Transaction via your own web 3 provider.</p>
-                        <p>#3 Start the Switch Procedure by clicking the "Switch" button and approve the Ethereum transaction via your own web 3 provider.</p>
+                        <p>#2 Approve the Manager by clicking to the "Approve" button and then start the Aprroval Transaction via your own web 3 provider (Metamask, TrustWallet...).</p>
+                        <p>#3 Start the Switch Procedure by clicking the "Switch" button and approve the Ethereum transaction via your own web 3 provider (Metamask, TrustWallet...).</p>
                         <p>#4 Done! Just waiting for the Ethereum Transaction and the $buidl V2 tokens will be in your wallet</p>
                     </section>
                     <h2>Incentives</h2>
