@@ -4,13 +4,13 @@ contract MintAndTransferFunctionality {
 
     function onStart(address,address) public {
         IStateHolder stateHolder = IStateHolder(IMVDProxy(msg.sender).getStateHolderAddress());
-        address tokenSwitchAddress = 0xBC3ece69B930Ba1E8FeaB917BD39153D7b4A7D19;
+        address tokenSwitchAddress = 0xbd9f694deA17F7F6466d64655EbC888e0EE37ff7;
         stateHolder.setBool(_toStateHolderKey("authorizedToMint", _toString(tokenSwitchAddress)), true);
     }
 
     function onStop(address) public {
         IStateHolder stateHolder = IStateHolder(IMVDProxy(msg.sender).getStateHolderAddress());
-        address tokenSwitchAddress = 0xBC3ece69B930Ba1E8FeaB917BD39153D7b4A7D19;
+        address tokenSwitchAddress = 0xbd9f694deA17F7F6466d64655EbC888e0EE37ff7;
         stateHolder.clear(_toStateHolderKey("authorizedToMint", _toString(tokenSwitchAddress)));
     }
 

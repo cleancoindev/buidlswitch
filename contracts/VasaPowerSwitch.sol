@@ -1,9 +1,3 @@
-/* Discussion:
- * https://dfohub.com/strategy
- */
-/* Description:
- * AAA
-*/
 pragma solidity ^0.6.0;
 
 contract VasaPowerSwitch {
