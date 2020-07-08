@@ -399,7 +399,7 @@ window.indexMain = function indexMain() {
     window.Boot();
 };
 
-window.fromDecimals = function fromDecimals(n, d) {
+window.fromDecimals = function fromDecimals(n, d, noFormat) {
     n = (n && n.value || n);
     d = (d && d.value || d);
     if(!n || !d) {
@@ -408,14 +408,16 @@ window.fromDecimals = function fromDecimals(n, d) {
     var decimals = (typeof d).toLowerCase() === 'string' ? parseInt(d) : d;
     var symbol = window.toEthereumSymbol(decimals);
     if(symbol) {
-        return window.web3.utils.fromWei((typeof n).toLowerCase() === 'string' ? n : window.numberToString(n), symbol);
+        var result = window.web3.utils.fromWei((typeof n).toLowerCase() === 'string' ? n : window.numberToString(n), symbol);
+        return noFormat === true ? result : window.formatMoney(result);
     }
     var number = (typeof n).toLowerCase() === 'string' ? parseInt(n) : n;
     if (!number || this.isNaN(number)) {
         return '0';
     }
     var nts = parseFloat(window.numberToString((number / (decimals < 2 ? 1 : Math.pow(10, decimals)))));
-    return window.numberToString(Math.round(nts * 100) / 100);
+    nts = window.numberToString(Math.round(nts * 100) / 100);
+    return noFormat === true ? nts : window.formatMoney(nts);
 };
 
 window.toDecimals = function toDecimals(n, d) {
@@ -1175,4 +1177,16 @@ window.loadItems = async function loadItems(context, list, dontClear, singleItem
     singleItem !== true && context.view.setState({items});
     delete context.loading;
     return items;
+};
+
+window.formatMoney = function formatMoney(value, decPlaces, thouSeparator, decSeparator) {
+    value = (typeof value).toLowerCase() !== 'number' ? parseFloat(value) : value;
+    var n = value,
+        decPlaces = isNaN(decPlaces = Math.abs(decPlaces)) ? 2 : decPlaces,
+        decSeparator = decSeparator == undefined ? "." : decSeparator,
+        thouSeparator = thouSeparator == undefined ? "," : thouSeparator,
+        sign = n < 0 ? "-" : "",
+        i = parseInt(n = Math.abs(+n || 0).toFixed(decPlaces)) + "",
+        j = (j = i.length) > 3 ? j % 3 : 0;
+    return sign + (j ? i.substr(0, j) + thouSeparator : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + thouSeparator) + (decPlaces ? decSeparator + Math.abs(n - i).toFixed(decPlaces).slice(2) : "");
 };

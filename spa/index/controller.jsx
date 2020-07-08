@@ -8,15 +8,17 @@ var IndexController = function (view) {
         var slots = [];
         var currentSlot = null;
         var currentBlock = parseInt(await window.web3.eth.getBlockNumber());
+        var startBlock = parseInt(await window.blockchainCall(window.vasaPowerSwitch.methods.startBlock));
         for(var i = 0; i < length; i++) {
             var data = await window.blockchainCall(window.vasaPowerSwitch.methods.timeWindow, i);
             slots.push(data);
-            !currentSlot && currentBlock <= parseInt(data[0]) && (currentSlot = data);
+            currentBlock >= startBlock && !currentSlot && currentBlock <= parseInt(data[0]) && (currentSlot = data);
         }
         var approved = !window.walletAddress ? false : parseInt(await window.blockchainCall(window.oldToken.methods.allowance, window.walletAddress, window.vasaPowerSwitch.options.address)) > 0;
         var balanceOf = !window.walletAddress ? '0' : await window.blockchainCall(window.oldToken.methods.balanceOf, window.walletAddress);
         var totalMintable = await window.blockchainCall(window.vasaPowerSwitch.methods.totalMintable);
         context.view.setState({
+            startBlock,
             slots,
             currentSlot,
             currentBlock,

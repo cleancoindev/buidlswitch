@@ -8,10 +8,10 @@ var Info = React.createClass({
                 <section className="ExpTop">
                     <h1>Welcome to the $buidl Switch manager</h1>
                     <section className="ExpPar">
-                        <p>This is the official Manager for the transition from the old <b>$BUIDL V1</b> Governance Token of DFOhub <a href="https://etherscan.io/token/0xD6F0Bb2A45110f819e908a915237D652Ac7c5AA8" target="_Blank">0xD6F0Bb2A45110f819e908a915237D652Ac7c5AA8</a> to the new <b>$buidl V2</b> <a href="https://etherscan.io/token/0xD6F0Bb2A45110f819e908a915237D652Ac7c5AA8" target="_Blank">0xD6F0Bb2A45110f819e908a915237D652Ac7c5AA8</a></p>
+        <p>This is the official Manager for the transition from the old <b>$BUIDL V1</b> Governance Token of DFOhub <a href={window.getNetworkElement("etherscanURL") + "token/" + window.oldToken.options.address} target="_blank">{window.oldToken.options.address}</a> to the new <b>$buidl V2</b> <a href={window.getNetworkElement("etherscanURL") + "token/" + this.props.newVotingTokenAddress} target="_blank">{this.props.newVotingTokenAddress}</a></p>
                     </section>
                     <section className="ExpPar">
-                        <p><b>Disclamer:</b> Before to trust this website be sure that the url you're using is <a href="https://switch.dfohub.com" target="_Blank">https://switch.dfohub.com</a></p>
+                        <p><b>Disclamer:</b> Before to trust this website be sure that the url you're using is <a href="https://switch.dfohub.com" target="_blank">https://switch.dfohub.com</a></p>
                     </section>
                     <h2>This Switch Manager is the only Official Service supported by the DFOhub Team</h2>
                     <section className="ExpPar">
