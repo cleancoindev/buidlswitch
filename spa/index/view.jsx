@@ -44,11 +44,6 @@ var Index = React.createClass({
         this.state && Object.entries(this.state).forEach(data => props[data[0]] = data[1]);
         return (
             <section className="OnePage">
-                <section className="DisclamerBanner">
-                    <h1>Disclamer</h1>
-                    <p>The Switch Manager will start working at the ETH Block n 10432000</p>
-                    <a href="https://etherscan.io/block/countdown/10432000" target="_Blank">Coountdown</a>
-                </section>
                 <header className="Head">
                     <section className="HBrand">
                         <h6>$buidl Switch</h6>
