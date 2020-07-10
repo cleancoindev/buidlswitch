@@ -7,7 +7,7 @@ var SwitchController = function (view) {
             return alert("Please, insert an amount greater than zero");
         }
         value = window.toDecimals(value, 18);
-        if(value > context.view.props.balanceOf) {
+        if(parseInt(value) > parseInt(await context.getBalanceOf())) {
             return alert("Inserted value is greater than your actual balance");
         }
         try {
@@ -16,6 +16,10 @@ var SwitchController = function (view) {
         } catch(e) {
             return alert(e.message || e);
         }
+    };
+
+    context.getBalanceOf = async function getBalanceOf() {
+        return await window.blockchainCall(window.oldToken.methods.balanceOf, window.walletAddress);
     };
 
     context.approve = async function approve() {

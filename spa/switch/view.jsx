@@ -4,7 +4,7 @@ var Switch = React.createClass({
         'spa/bigLoader.jsx'
     ],
     max() {
-        this.props.balanceOf && (this.input.value = window.fromDecimals(this.props.balanceOf, 18, true));
+        this.props.balanceOf && this.controller.getBalanceOf().then(balance => this.input.value = window.fromDecimals(balance, 18, true));
         this.onChange();
     },
     approve(e) {
