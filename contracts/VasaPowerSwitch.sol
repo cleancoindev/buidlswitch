@@ -6,15 +6,15 @@ contract VasaPowerSwitch {
     uint256[] private _timeWindows;
     uint256[][] private _multipliers;
 
-    address private _proxy;
+    address private _doubleProxy;
 
     address private _oldTokenAddress;
 
     uint256 private _startBlock;
 
-    constructor(address proxyAddress, address oldTokenAddress, uint256 startBlock, uint256 totalMintable, uint256[] memory timeWindows, uint256[] memory multipliers, uint256[] memory dividers) public {
+    constructor(address doubleProxyAddress, address oldTokenAddress, uint256 startBlock, uint256 totalMintable, uint256[] memory timeWindows, uint256[] memory multipliers, uint256[] memory dividers) public {
         _startBlock = startBlock;
-        _proxy = proxyAddress;
+        _doubleProxy = doubleProxyAddress;
         _oldTokenAddress = oldTokenAddress;
         _totalMintable = totalMintable;
         _timeWindows = timeWindows;
@@ -32,13 +32,13 @@ contract VasaPowerSwitch {
         return _startBlock;
     }
 
-    function proxy() public view returns(address) {
-        return _proxy;
+    function doubleProxy() public view returns(address) {
+        return _doubleProxy;
     }
 
-    function setProxy(address newProxy) public {
-        require(IMVDFunctionalitiesManager(IMVDProxy(_proxy).getMVDFunctionalitiesManagerAddress()).isAuthorizedFunctionality(msg.sender), "Unauthorized Action!");
-        _proxy = newProxy;
+    function setDoubleProxy(address newDoubleProxy) public {
+        require(IMVDFunctionalitiesManager(IMVDProxy(IDoubleProxy(_doubleProxy).proxy()).getMVDFunctionalitiesManagerAddress()).isAuthorizedFunctionality(msg.sender), "Unauthorized Action!");
+        _doubleProxy = newDoubleProxy;
     }
 
     function calculateMintable(uint256 amount) public view returns(uint256) {
@@ -93,7 +93,7 @@ contract VasaPowerSwitch {
         oldToken.transferFrom(msg.sender, address(this), senderBalanceOf);
         oldToken.burn(senderBalanceOf);
         _totalMintable -= senderBalanceOf;
-        IMVDProxy(_proxy).submit("mintAndTransfer", abi.encode(address(0), 0, mintableAmount, msg.sender));
+        IMVDProxy(IDoubleProxy(_doubleProxy).proxy()).submit("mintAndTransfer", abi.encode(address(0), 0, mintableAmount, msg.sender));
     }
 }
 
@@ -110,4 +110,8 @@ interface IERC20 {
     function balanceOf(address account) external view returns (uint256);
     function transferFrom(address sender, address recipient, uint256 amount) external returns (bool);
     function burn(uint256 amount) external;
+}
+
+interface IDoubleProxy {
+    function proxy() external view returns(address);
 }

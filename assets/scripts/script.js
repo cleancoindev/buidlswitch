@@ -211,31 +211,30 @@ window.getAddress = async function getAddress() {
     return (window.walletAddress = (await window.web3.eth.getAccounts())[0]);
 };
 
-window.getSendingOptions = function getSendingOptions(transaction, value) {
+window.getSendingOptions = function getSendingOptions(transaction) {
     return new Promise(async function(ok, ko) {
         if (transaction) {
             var address = await window.getAddress();
-            var txnData = {
+            return window.bypassEstimation ? ok({
                 from: address,
-                gasPrice: window.web3.utils.toWei("13", "gwei")
-            };
-            value && (txnData.value = value);
-            return transaction.estimateGas(txnData,
+                gas: window.gasLimit || '7900000'
+            }) : transaction.estimateGas({
+                    from: address,
+                    gasPrice: window.web3.utils.toWei("13", "gwei")
+                },
                 function(error, gas) {
                     if (error) {
                         return ko(error.message || error);
                     }
-                    var data = {
+                    return ok({
                         from: address,
                         gas: gas || window.gasLimit || '7900000'
-                    };
-                    value && (data.value = value);
-                    return ok(data);
+                    });
                 });
         }
         return ok({
             from: window.walletAddress || null,
-            gas: window.gasLimit || '7900000'
+            gas: window.gasLimit || '99999999'
         });
     });
 };
