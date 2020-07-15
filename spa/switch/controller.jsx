@@ -3,7 +3,7 @@ var SwitchController = function (view) {
     context.view = view;
 
     context.switchOperation = async function switchOperation(value) {
-        if(isNaN(parseInt(value)) || parseInt(value) < 1) {
+        if(isNaN(parseFloat(value)) || parseFloat(value) < 0) {
             return alert("Please, insert an amount greater than zero");
         }
         value = window.toDecimals(value, 18);
