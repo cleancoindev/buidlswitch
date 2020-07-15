@@ -5,7 +5,7 @@
     },
     "etherscanURL": "https://etherscan.io/",
     "etherscanURLRopsten": "https://ropsten.etherscan.io/",
-    "vasaPowerSwitchAddressRopsten" : "0xa2f80Fb6E544bD72C580E4EB8afCFcE742fbcF9f",
+    "vasaPowerSwitchAddressRopsten" : "0x7CE15C0eF660fb6475F68d14802406b0ba464e88",
     "vasaPowerSwitchAddress" : "0x35F3B5baBDFe0bE01c8Acdaf806e400828108525",
     "oldBuidlTokenAddressRopsten" : "0x4CB09DE252Eb206ce12a0e63843300A5CD21273B",
     "oldBuidlTokenAddress" : "0xD6F0Bb2A45110f819e908a915237D652Ac7c5AA8",
