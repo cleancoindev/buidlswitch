@@ -1,4 +1,4 @@
-# The only official Switch service for buidl V2
+# The official Switch service for buidl V2
 The Official DFOhub switch Service, available at https://switch.dfohub.com is an easy procedure to receive new $buidl V2 Voting tokens, by burning old one $BUIDL V1 tokens.
 
 # How
