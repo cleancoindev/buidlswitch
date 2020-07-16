@@ -78,8 +78,4 @@ Contract: 0x7b123f53421b1bF8533339BFBdc7C98aA94163db
 
 Etherscan: https://etherscan.io/token/0x7b123f53421b1bF8533339BFBdc7C98aA94163db
 
-Uniswap: https://uniswap.info/token/0x7b123f53421b1bf8533339bfbdc7c98aa94163db
-
-Coingecko: https://www.coingecko.com/en/coins/dfohub
-
 Be aware of any unofficial communication or investment advice involving buidl V1 or fake buidl tokens.
