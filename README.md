@@ -20,41 +20,41 @@ The Official DFOhub switch Service, available at https://switch.dfohub.com is an
 # Incentives
 During the Switch period, there are some bonuses for early switchers.
 
-x 1.3 End Block: 10438300
+x 1.3 End Block: 10438300 (https://etherscan.io/block/10438300)
 
-x 1.2 End Block: 10450900
+x 1.2 End Block: 10450900 (https://etherscan.io/block/10450900)
 
-x 1.1 End Block: 10482400
+x 1.1 End Block: 10482400 (https://etherscan.io/block/10482400)
 
-x 1 End Block: 10765900
+x 1 End Block: 10765900 (https://etherscan.io/block/10765900)
 
-x 0.9 End Block: 10769050
+x 0.9 End Block: 10769050 (https://etherscan.io/block/10769050)
 
-x 0.8 End Block: 10772200
+x 0.8 End Block: 10772200 (https://etherscan.io/block/10772200)
 
-x 0.7 End Block: 10775350
+x 0.7 End Block: 10775350 (https://etherscan.io/block/10775350)
 
-x 0.6 End Block: 10778500
+x 0.6 End Block: 10778500 (https://etherscan.io/block/10778500)
 
-x 0.5End Block: 10781650
+x 0.5End Block: 10781650 (https://etherscan.io/block/10781650)
 
-x 0.4 End Block: 10784800
+x 0.4 End Block: 10784800 (https://etherscan.io/block/10784800)
 
-x 0.3 End Block: 10787950
+x 0.3 End Block: 10787950 (https://etherscan.io/block/10787950)
 
-x 0.2 End Block: 10791100
+x 0.2 End Block: 10791100 (https://etherscan.io/block/10791100)
 
-x 0.1 End Block: 10794250
+x 0.1 End Block: 10794250 (https://etherscan.io/block/10794250)
 
-x 0.01 End Block: 10797400
+x 0.01 End Block: 10797400 (https://etherscan.io/block/10797400)
 
-x 0.001 End Block: 10800550
+x 0.001 End Block: 10800550 (https://etherscan.io/block/10800550)
 
-x 0.0001 End Block: 10803700
+x 0.0001 End Block: 10803700 (https://etherscan.io/block/10803700)
 
-x 0.00001 End Block: 10806850
+x 0.00001 End Block: 10806850 (https://etherscan.io/block/10806850)
 
-x 0.000001 End Block: 10810000
+x 0.000001 End Block: 10810000 (https://etherscan.io/block/10810000)
 
 x 0
 
