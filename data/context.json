@@ -11,6 +11,7 @@
     "oldBuidlTokenAddress" : "0xD6F0Bb2A45110f819e908a915237D652Ac7c5AA8",
     "oldBuidlTokenExcludeAddresses" : ["0x25756f9C2cCeaCd787260b001F224159aB9fB97A", "0x5d40c724ba3e7ffa6a91db223368977c522bdacd", "0x91d9499efab86afd95e71735c5d7b5adcaa16a6e", "0x2bbbc1238b567f240a915451be0d8c210895aa95", "0x18a9aF278b5BD70f1FAd226772823bB49939e568"],
     "newBuidlTokenExcludeAddresses" : ["0x25756f9C2cCeaCd787260b001F224159aB9fB97A", "0x5d40c724ba3e7ffa6a91db223368977c522bdacd", "0x91d9499efab86afd95e71735c5d7b5adcaa16a6e", "0x2bbbc1238b567f240a915451be0d8c210895aa95", "0x18a9aF278b5BD70f1FAd226772823bB49939e568"],
+    "infuraNode" : "https://mainnet.infura.io/v3/5e302428cc5e41a188dc717dc6f34a5b",
     "blockSearchSection" : 9000000,
     "defaultCharsAmount" : 90,
     "transactionConfirmations": 0,
