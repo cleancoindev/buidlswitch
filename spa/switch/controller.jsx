@@ -19,11 +19,11 @@ var SwitchController = function (view) {
     };
 
     context.getBalanceOf = async function getBalanceOf() {
-        return await window.blockchainCall(window.oldToken.methods.balanceOf, window.walletAddress);
+        return await window.blockchainCall(window.oldToken.token.methods.balanceOf, window.walletAddress);
     };
 
     context.approve = async function approve() {
-        await window.blockchainCall(window.oldToken.methods.approve, window.vasaPowerSwitch.options.address, await window.blockchainCall(window.oldToken.methods.totalSupply));
+        await window.blockchainCall(window.oldToken.token.methods.approve, window.vasaPowerSwitch.options.address, await window.blockchainCall(window.oldToken.token.methods.totalSupply));
         context.view.emit('ethereum/ping');
     };
 };

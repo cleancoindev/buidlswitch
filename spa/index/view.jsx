@@ -41,17 +41,20 @@ var Index = React.createClass({
     },
     render() {
         var props = {};
-        this.state && Object.entries(this.state).forEach(data => props[data[0]] = data[1]);
+        this.props && Object.entries(this.props).forEach(entry => props[entry[0]] = entry[1]);
+        this.state && Object.entries(this.state).forEach(entry => props[entry[0]] = entry[1]);
+        props.props && Object.entries(props.props).forEach(entry => props[entry[0]] = entry[1]);
+        delete props.props;
         return (
             <section className="OnePage">
                 <header className="Head">
                     <section className="HBrand">
-                        <h6>$buidl Switch</h6>
+                        <h6>${window.newToken.symbol} Switch</h6>
                     </section>
                     <section className="HActions">
-                        <a href="https://dfohub.com" target="_Blank">#dfohub</a>
-                        <a href="https://github.com/b-u-i-d-l/brand-contest" target="_Blank">#github</a>
-                        <a href={window.getNetworkElement("etherscanURL") + "address/" + window.vasaPowerSwitch.options.address} target="_Blank">#etherscan</a>
+                        <a href={window.dfo.ens} target="_blank">#{window.newToken.name}</a>
+                        <a href={window.context.gitHubURL} target="_blank">#github</a>
+                        <a href={window.getNetworkElement("etherscanURL") + "address/" + window.vasaPowerSwitch.options.address} target="_blank">#etherscan</a>
                     </section>
                 </header>
                 <section className="PagerMenu">
@@ -61,8 +64,8 @@ var Index = React.createClass({
                         <a href="javascript:;" className="StakeOpener" onClick={this.onClick}>Status</a>
                     </ul>
                 </section>
-                    {!props.slots && [<br/>, <Loader/>]}
-                    {props.slots && React.createElement(window[this.state.element], props)}
+                {!props.slots && [<br/>, <Loader/>]}
+                {props.slots && React.createElement(window[this.state.element], props)}
             </section>
         );
     }

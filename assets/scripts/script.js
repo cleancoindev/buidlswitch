@@ -103,7 +103,13 @@ window.onEthereumUpdate = function onEthereumUpdate(millis) {
                 }
                 window.DFOHub(window.web3);
                 window.vasaPowerSwitch = window.newContract(window.context.VasaPowerSwitchAbi, window.getNetworkElement("vasaPowerSwitchAddress"));
-                window.oldToken = window.newContract(window.context.erc20Abi, window.getNetworkElement("oldBuidlTokenAddress"));
+                window.doubleProxy = window.newContract(window.context.DoubleProxyAbi, await window.blockchainCall(window.vasaPowerSwitch.methods.doubleProxy))
+                window.dfo = window.web3.eth.dfoHub.load(await window.blockchainCall(window.doubleProxy.methods.proxy));
+                window.uniswapV2Router = window.newContract(window.context.UniswapV2RouterAbi, window.context.uniswapV2RouterAddress);
+                window.wethToken = window.newContract(window.context.votingTokenAbi, window.wethAddress = window.web3.utils.toChecksumAddress(await window.blockchainCall(window.uniswapV2Router.methods.WETH)));
+                window.oldToken = await window.loadTokenInfos(window.getNetworkElement("oldTokenAddress"), window.wethAddress);
+                window.dfo = await window.dfo;
+                window.newToken = await window.loadTokenInfos((await window.dfo.votingToken).options.address, window.wethAddress);
                 update = true;
             }
             update && $.publish('ethereum/update');
@@ -1185,4 +1191,59 @@ window.formatMoney = function formatMoney(value, decPlaces, thouSeparator, decSe
         i = parseInt(n = Math.abs(+n || 0).toFixed(decPlaces)) + "",
         j = (j = i.length) > 3 ? j % 3 : 0;
     return sign + (j ? i.substr(0, j) + thouSeparator : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + thouSeparator) + (decPlaces ? decSeparator + Math.abs(n - i).toFixed(decPlaces).slice(2) : "");
+};
+
+
+window.loadTokenInfos = async function loadTokenInfos(addresses, wethAddress) {
+    wethAddress = wethAddress || await window.blockchainCall(window.newContract(window.context.uniSwapV2RouterAbi, window.context.uniSwapV2RouterAddress).methods.WETH);
+    wethAddress = window.web3.utils.toChecksumAddress(wethAddress);
+    var single = (typeof addresses).toLowerCase() === 'string';
+    addresses = single ? [addresses] : addresses;
+    var tokens = [];
+    for (var address of addresses) {
+        address = window.web3.utils.toChecksumAddress(address);
+        var token = window.newContract(window.context.votingTokenAbi, address);
+        tokens.push({
+            address,
+            token,
+            name: address === wethAddress ? 'Ethereum' : await window.blockchainCall(token.methods.name),
+            symbol: address === wethAddress ? 'ETH' : await window.blockchainCall(token.methods.symbol),
+            decimals: address === wethAddress ? '18' : await window.blockchainCall(token.methods.decimals),
+            logo: await window.loadLogo(address === wethAddress ? window.voidEthereumAddress : address)
+        });
+    }
+    return single ? tokens[0] : tokens;
+};
+
+window.loadLogo = async function loadLogo(address) {
+    address = window.web3.utils.toChecksumAddress(address);
+    var logo = address === window.voidEthereumAddress ? 'assets/img/eth-logo.png' : window.context.trustwalletImgURLTemplate.format(address);
+    try {
+        await window.AJAXRequest(logo);
+    } catch (e) {
+        logo = 'assets/img/default-logo.png';
+    }
+    return logo;
+};
+
+window.calculateTimeTier = function calculateTimeTier(blockLimit) {
+    var tiers = Object.entries(window.context.blockTiers);
+    for (var tier of tiers) {
+        var steps = tier[1].averages;
+        if (blockLimit >= steps[0] && blockLimit <= steps[2]) {
+            return `~${tier[0].firstLetterToUpperCase()} (${blockLimit} blocks)`;
+        }
+    }
+    return `${blockLimit} blocks`;
+};
+
+window.getTierKey = function getTierKey(blockLimit) {
+    var tiers = Object.entries(window.context.blockTiers);
+    for (var tier of tiers) {
+        var steps = tier[1].averages;
+        if (blockLimit >= steps[0] && blockLimit <= steps[2]) {
+            return tier[0];
+        }
+    }
+    return 'Custom';
 };

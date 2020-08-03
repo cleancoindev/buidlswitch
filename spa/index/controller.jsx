@@ -3,31 +3,39 @@ var IndexController = function (view) {
     context.view = view;
 
     context.loadData = async function loadData() {
-        context.view.setState({slots : null});
+        if(window.walletAddress) {
+            context.view.setState({
+                newVotingTokenAddress : window.newToken.token.options.address,
+                newVotingTokenSupply : await context.loadSupplies(window.newToken.token, window.context.newTokenExcludeAddresses),
+                oldVotingTokenSupply : await context.loadSupplies(window.oldToken.token, window.context.oldTokenExcludeAddresses)
+            });
+        }
+
+        var currentBlock = parseInt(await window.web3.eth.getBlockNumber());
+        var startBlock = parseInt(await window.blockchainCall(window.vasaPowerSwitch.methods.startBlock));
+        var approved = !window.walletAddress ? false : parseInt(await window.blockchainCall(window.oldToken.token.methods.allowance, window.walletAddress, window.vasaPowerSwitch.options.address)) > 0;
+        var balanceOf = !window.walletAddress ? '0' : await window.blockchainCall(window.oldToken.token.methods.balanceOf, window.walletAddress);
+        var totalMintable = await window.blockchainCall(window.vasaPowerSwitch.methods.totalMintable);
+
+        context.view.setState({
+            startBlock,
+            currentBlock,
+            approved,
+            balanceOf,
+            totalMintable
+        });
+
         var length = await window.blockchainCall(window.vasaPowerSwitch.methods.length);
         var slots = [];
         var currentSlot = null;
-        var currentBlock = parseInt(await window.web3.eth.getBlockNumber());
-        var startBlock = parseInt(await window.blockchainCall(window.vasaPowerSwitch.methods.startBlock));
         for(var i = 0; i < length; i++) {
             var data = await window.blockchainCall(window.vasaPowerSwitch.methods.timeWindow, i);
             slots.push(data);
             currentBlock >= startBlock && !currentSlot && currentBlock <= parseInt(data[0]) && (currentSlot = data);
         }
-        var approved = !window.walletAddress ? false : parseInt(await window.blockchainCall(window.oldToken.methods.allowance, window.walletAddress, window.vasaPowerSwitch.options.address)) > 0;
-        var balanceOf = !window.walletAddress ? '0' : await window.blockchainCall(window.oldToken.methods.balanceOf, window.walletAddress);
-        var totalMintable = await window.blockchainCall(window.vasaPowerSwitch.methods.totalMintable);
         context.view.setState({
-            startBlock,
             slots,
-            currentSlot,
-            currentBlock,
-            approved,
-            balanceOf,
-            totalMintable,
-            newVotingTokenAddress : (await window.web3.eth.dfoHub.votingToken).options.address,
-            newVotingTokenSupply : await context.loadSupplies(await window.web3.eth.dfoHub.votingToken, window.context.newBuidlTokenExcludeAddresses),
-            oldVotingTokenSupply : await context.loadSupplies(window.oldToken, window.context.oldBuidlTokenExcludeAddresses)
+            currentSlot
         });
     };
 
