@@ -2,6 +2,16 @@ pragma solidity ^0.6.0;
 
 contract MintAndTransferFunctionality {
 
+    string private _metadataLink;
+
+    constructor(string memory metadataLink) {
+        _metadataLink = metadataLink;
+    }
+
+    function getMetadataLink() public view returns(string memory) {
+        return _metadataLink;
+    }
+
     function onStart(address,address) public {
         IStateHolder stateHolder = IStateHolder(IMVDProxy(msg.sender).getStateHolderAddress());
         address tokenSwitchAddress = 0xbd9f694deA17F7F6466d64655EbC888e0EE37ff7;
